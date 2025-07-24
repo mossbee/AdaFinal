@@ -1,0 +1,29 @@
+{
+    "id1": [
+        "/path/to/image_1/of/id1.jpg",
+        "/path/to/image_2/of/id1.jpg",
+        "/path/to/image_3/of/id1.jpg",
+        "/path/to/image_4/of/id1.jpg"
+    ],
+    "id2": [
+        "/path/to/image_1/of/id2.jpg",
+        "/path/to/image_2/of/id2.jpg",
+        "/path/to/image_3/of/id2.jpg",
+        "/path/to/image_4/of/id2.jpg",
+        "/path/to/image_5/of/id2.jpg"
+    ],
+    "id3": [
+        "/path/to/image_1/of/id3.jpg",
+        "/path/to/image_2/of/id3.jpg",
+        "/path/to/image_3/of/id3.jpg",
+        "/path/to/image_4/of/id3.jpg",
+        "/path/to/image_5/of/id3.jpg",
+        "/path/to/image_6/of/id3.jpg"
+    ],
+    "id4": [
+        "/path/to/image_1/of/id4.jpg",
+        "/path/to/image_2/of/id4.jpg",
+        "/path/to/image_3/of/id4.jpg",
+        "/path/to/image_4/of/id4.jpg"
+    ]
+}
