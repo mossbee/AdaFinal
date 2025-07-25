@@ -423,32 +423,4 @@ def save_aligned_id_mapping(aligned_id_to_images, output_json_path):
     print(f"Total aligned images: {total_images}")
 
 if __name__ == '__main__':
-    # Example 1: Calculate similarity for a folder of images
-    images_folder = '/home/mossbee/Work/AdaFace/face_alignment/test_images'
-    aligned_folder = '/home/mossbee/Work/AdaFace/face_alignment/aligned_images'
-    model = load_pretrained_model('ir_50', device='cpu')
-    similarity_scores = calculate_folder_similarity(images_folder, aligned_folder, model, device='cpu', batch_size=32)
-    print("Similarity matrix:")
-    print(similarity_scores)
-    
-    # Example 2: Align twin pairs images with organized folder structure
-    id_to_images_json = '/home/mossbee/Work/AdaFace/id_to_images.json'
-    test_twin_pairs_json = '/home/mossbee/Work/AdaFace/test_twin_id_pairs.json'
-    dest_folder = '/home/mossbee/Work/AdaFace/aligned_twin_images'
-    
-    print("\n" + "="*50)
-    print("Aligning twin pairs images...")
-    stats = align_twin_pairs_images(
-        id_to_images_json=id_to_images_json,
-        test_twin_pairs_json=test_twin_pairs_json,
-        dest_folder=dest_folder,
-        max_workers=4,
-        overwrite=True
-    )
-    
-    print(f"Final stats: {stats}")
-    
-    # Save the aligned ID mapping to a JSON file
-    if stats["aligned_id_to_images"]:
-        aligned_mapping_json = '/home/mossbee/Work/AdaFace/aligned_id_to_images.json'
-        save_aligned_id_mapping(stats["aligned_id_to_images"], aligned_mapping_json)
+    pass
