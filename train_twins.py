@@ -198,7 +198,7 @@ class TwinTrainer:
                 # Compute features
                 anchor_features = self._compute_batch_features(anchor_imgs)
                 positive_features = self._compute_batch_features(positive_imgs)
-                negative_features = self._compute_batch_features(negativeImgs)
+                negative_features = self._compute_batch_features(negative_imgs)
                 
                 # Compute loss and metrics
                 loss, metrics = criterion(anchor_features, positive_features, negative_features, return_metrics=True)
@@ -331,9 +331,9 @@ class TwinTrainer:
                 
                 # Compute features - now these are already batched tensors
                 anchor_features = self._compute_batch_features(anchor_imgs)
-                positive_features = self._compute_batch_features(positiveImgs)
-                negative_features = self._compute_batch_features(negativeImgs)
-                
+                positive_features = self._compute_batch_features(positive_imgs)
+                negative_features = self._compute_batch_features(negative_imgs)
+
                 # Compute loss
                 loss, metrics = criterion(anchor_features, positive_features, negative_features, return_metrics=True)
                 
