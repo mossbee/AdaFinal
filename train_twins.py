@@ -491,7 +491,7 @@ def main():
                        help='Overwrite existing aligned images')
     
     # Training settings
-    parser.add_argument('--train_percentage', type=int, default=100, choices=[10, 25, 50, 75, 100],
+    parser.add_argument('--train_percentage', type=int, default=100, choices=[1, 2, 10, 25, 50, 75, 100],
                        help='Percentage of training data to use')
     parser.add_argument('--freeze_backbone', action='store_true',
                        help='Freeze backbone and only train embedding layer')
