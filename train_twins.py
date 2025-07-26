@@ -163,13 +163,21 @@ class TwinTrainer:
         
         return optimizer
     
-    def _compute_batch_features(self, image_tensors):
-        """Compute features for a batch of image tensors."""
-        if len(image_tensors) == 0:
+    def _compute_batch_features(self, batch_tensor):
+        """
+        Compute features for a batch tensor.
+        
+        Args:
+            batch_tensor (torch.Tensor): Batch of image tensors [batch_size, 3, 112, 112]
+            
+        Returns:
+            torch.Tensor: Feature embeddings [batch_size, 512]
+        """
+        if batch_tensor.size(0) == 0:
             return torch.empty(0, 512).to(self.device)
         
-        # Stack tensors into a batch
-        batch_tensor = torch.stack(image_tensors).to(self.device)
+        # Move batch to device
+        batch_tensor = batch_tensor.to(self.device)
         
         # Get features from model
         features, _ = self.model(batch_tensor)
@@ -190,7 +198,7 @@ class TwinTrainer:
                 # Compute features
                 anchor_features = self._compute_batch_features(anchor_imgs)
                 positive_features = self._compute_batch_features(positive_imgs)
-                negative_features = self._compute_batch_features(negative_imgs)
+                negative_features = self._compute_batch_features(negativeImgs)
                 
                 # Compute loss and metrics
                 loss, metrics = criterion(anchor_features, positive_features, negative_features, return_metrics=True)
@@ -321,10 +329,10 @@ class TwinTrainer:
                 # Zero gradients
                 optimizer.zero_grad()
                 
-                # Compute features
+                # Compute features - now these are already batched tensors
                 anchor_features = self._compute_batch_features(anchor_imgs)
-                positive_features = self._compute_batch_features(positive_imgs)
-                negative_features = self._compute_batch_features(negative_imgs)
+                positive_features = self._compute_batch_features(positiveImgs)
+                negative_features = self._compute_batch_features(negativeImgs)
                 
                 # Compute loss
                 loss, metrics = criterion(anchor_features, positive_features, negative_features, return_metrics=True)
