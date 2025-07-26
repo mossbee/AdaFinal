@@ -1,12 +1,12 @@
-import net
-import torch
 import os
-from face_alignment import align
+import net
+import json
+import torch
+import threading
 import numpy as np
 from PIL import Image
+from face_alignment import align
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
-import json
 
 
 adaface_models = {
@@ -412,7 +412,6 @@ def save_aligned_id_mapping(aligned_id_to_images, output_json_path):
         aligned_id_to_images (dict): Dictionary mapping ID to list of aligned image paths
         output_json_path (str): Path where to save the JSON file
     """
-    import json
     
     with open(output_json_path, 'w') as f:
         json.dump(aligned_id_to_images, f, indent=4)

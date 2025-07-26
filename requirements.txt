@@ -6,3 +6,8 @@ prettytable
 menpo
 mxnet
 opencv-python
+matplotlib
+seaborn
+scikit-learn
+scipy
+pillow
