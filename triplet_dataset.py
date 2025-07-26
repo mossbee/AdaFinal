@@ -6,6 +6,7 @@ from PIL import Image
 import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
+import torchvision.transforms as transforms
 
 
 class TwinTripletDataset(Dataset):
@@ -41,6 +42,13 @@ class TwinTripletDataset(Dataset):
         # Set random seed for reproducibility
         random.seed(seed)
         np.random.seed(seed)
+        
+        # Define image transforms (convert PIL to tensor)
+        self.transform = transforms.Compose([
+            transforms.Resize((112, 112)),  # AdaFace input size
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # AdaFace normalization
+        ])
         
         # Generate triplets
         self.triplets = self._generate_triplets()
@@ -132,10 +140,10 @@ class TwinTripletDataset(Dataset):
     
     def __getitem__(self, idx):
         """
-        Get a triplet of images.
+        Get a triplet of images as tensors.
         
         Returns:
-            tuple: (anchor_img, positive_img, negative_img, anchor_id, positive_id, negative_id)
+            tuple: (anchor_tensor, positive_tensor, negative_tensor, anchor_id, positive_id, negative_id)
         """
         anchor_path, positive_path, negative_path, anchor_id, negative_id = self.triplets[idx]
         
@@ -145,7 +153,12 @@ class TwinTripletDataset(Dataset):
             positive_img = Image.open(positive_path).convert('RGB') 
             negative_img = Image.open(negative_path).convert('RGB')
             
-            return (anchor_img, positive_img, negative_img, anchor_id, anchor_id, negative_id)
+            # Convert to tensors
+            anchor_tensor = self.transform(anchor_img)
+            positive_tensor = self.transform(positive_img)
+            negative_tensor = self.transform(negative_img)
+            
+            return (anchor_tensor, positive_tensor, negative_tensor, anchor_id, anchor_id, negative_id)
             
         except Exception as e:
             print(f"Error loading triplet {idx}: {e}")

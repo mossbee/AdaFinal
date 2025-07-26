@@ -163,13 +163,13 @@ class TwinTrainer:
         
         return optimizer
     
-    def _compute_batch_features(self, images):
-        """Compute features for a batch of images."""
-        if not images:
+    def _compute_batch_features(self, image_tensors):
+        """Compute features for a batch of image tensors."""
+        if len(image_tensors) == 0:
             return torch.empty(0, 512).to(self.device)
-            
-        # Convert PIL images to tensor batch
-        batch_tensor = to_input_batch(images).to(self.device)
+        
+        # Stack tensors into a batch
+        batch_tensor = torch.stack(image_tensors).to(self.device)
         
         # Get features from model
         features, _ = self.model(batch_tensor)
