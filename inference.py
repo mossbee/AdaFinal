@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 adaface_models = {
-    'ir_50':"pretrained/adaface_ir50_ms1mv2.ckpt",
+    'ir_50':"/kaggle/input/nd-twin/adaface_ir50_ms1mv2.ckpt",
 }
 
 def load_pretrained_model(architecture='ir_50', device='cpu'):
